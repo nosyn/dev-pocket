@@ -1,4 +1,4 @@
-import { Home, LucideIcon } from 'lucide-react';
+import { AmpersandIcon, LucideIcon } from 'lucide-react';
 
 type RouteConfig = {
   Icon: LucideIcon;
@@ -8,8 +8,8 @@ type RouteConfig = {
 
 export const RoutesConfig: RouteConfig[] = [
   {
-    Icon: Home,
-    title: 'Dashboard',
-    href: '/',
+    Icon: AmpersandIcon,
+    title: 'UUID',
+    href: '/uuid',
   },
 ];
