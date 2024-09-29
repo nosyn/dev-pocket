@@ -12,19 +12,19 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useState } from 'react';
 import { useUUIDStore } from '../../store';
+import { Badge } from '@/components/ui/badge';
 
 export const UUIDValidatorTab = () => {
-  const { validateUUID } = useUUIDStore();
+  const { version } = useUUIDStore();
   const [uuid, setUUID] = useState('');
-  const [isValidUUID, setIsValidUUID] = useState<boolean | null>(null);
+  const UUIDVersion = version(uuid);
+  const isValidUUID = UUIDVersion !== 0;
 
   const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const uuid = String(event.target.value).trim();
-
     setUUID(uuid);
-
-    setIsValidUUID(uuid.length ? validateUUID(event.target.value) : null);
   };
+
   return (
     <Card>
       <CardHeader>
@@ -44,10 +44,10 @@ export const UUIDValidatorTab = () => {
         </div>
       </CardContent>
       <CardFooter>
-        {isValidUUID !== null && (
-          <p className={isValidUUID ? 'text-green-500' : 'text-destructive'}>
-            {isValidUUID ? 'Valid UUID' : 'Invalid UUID'}
-          </p>
+        {uuid && (
+          <Badge variant={isValidUUID ? 'default' : 'destructive'}>
+            {isValidUUID ? `UUID v${UUIDVersion}` : 'Invalid UUID'}
+          </Badge>
         )}
       </CardFooter>
     </Card>
