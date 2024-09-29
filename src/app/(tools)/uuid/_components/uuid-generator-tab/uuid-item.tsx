@@ -11,7 +11,8 @@ import { CopyIcon, RotateCcwIcon } from 'lucide-react';
 import { toast } from 'sonner';
 
 export function UUIDItem() {
-  const { generateUUID, selectedVersion } = useUUIDStore();
+  const { generateUUID, selectedVersion, autoRegenerateAfterCopy } =
+    useUUIDStore();
   const [uuid, setUUID] = useState('');
   const [_state, copyToClipboard] = useCopyToClipboard();
 
@@ -33,6 +34,7 @@ export function UUIDItem() {
               className='ml-4'
               onClick={() => {
                 copyToClipboard(uuid);
+                autoRegenerateAfterCopy && setUUID(generateUUID());
                 toast('UUID Copied');
               }}
             >
@@ -41,21 +43,23 @@ export function UUIDItem() {
           </TooltipTrigger>
           <TooltipContent>Copy</TooltipContent>
         </Tooltip>
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <Button
-              variant='ghost'
-              size='icon'
-              className='ml-4'
-              onClick={() => {
-                setUUID(generateUUID());
-              }}
-            >
-              <RotateCcwIcon className='w-4 h-4' />
-            </Button>
-          </TooltipTrigger>
-          <TooltipContent>Regenerate</TooltipContent>
-        </Tooltip>
+        {!autoRegenerateAfterCopy && (
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button
+                variant='ghost'
+                size='icon'
+                className='ml-4'
+                onClick={() => {
+                  setUUID(generateUUID());
+                }}
+              >
+                <RotateCcwIcon className='w-4 h-4' />
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent>Regenerate</TooltipContent>
+          </Tooltip>
+        )}
       </div>
     </div>
   );

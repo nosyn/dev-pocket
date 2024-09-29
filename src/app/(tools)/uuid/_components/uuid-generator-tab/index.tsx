@@ -13,6 +13,7 @@ import { useUUIDStore } from '../../store';
 import { NumberOfUUIDs } from './number-of-uuids';
 import { SelectUUIDVersion } from './select-uuid-version';
 import { UUIDItem } from './uuid-item';
+import { AutoRegenerateAfterCopy } from './auto-generate-after-copy';
 
 export const UUIDGeneratorTab = () => {
   const { numberOfUUIDs } = useUUIDStore();
@@ -30,6 +31,8 @@ export const UUIDGeneratorTab = () => {
           <SelectUUIDVersion />
           <Separator orientation='vertical' className='h-10' />
           <NumberOfUUIDs />
+          <Separator orientation='vertical' className='h-10' />
+          <AutoRegenerateAfterCopy />
         </div>
         <div className='flex flex-col gap-2 '>
           {Array.from({ length: numberOfUUIDs }).map((_, index) => (
